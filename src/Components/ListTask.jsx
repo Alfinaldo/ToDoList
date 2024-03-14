@@ -1,4 +1,6 @@
 import { FaTrashAlt } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
+import { FaXmark } from "react-icons/fa6";
 import { AiFillEdit } from "react-icons/ai";
 import StatusTask from "./StatusTask";
 import Swal from "sweetalert2";
@@ -15,9 +17,7 @@ export default function ListTask({todos, setTodos, setTasks, setUpdate}) {
     if(edited) {
       setTasks(edited.tasks)
       setUpdate(id)
-    }
-    console.log(edited)
-    
+    }   
   }
 
 
@@ -48,7 +48,8 @@ export default function ListTask({todos, setTodos, setTasks, setUpdate}) {
         <div className="list-task">
               <StatusTask todos={todos} setTodos={setTodos} />
             <div className="wrapper">
-             {todos.length < 1 ?  <p>No have task...</p> : ""}
+             {todos.length < 1 ?  <p>No have task👽</p> : ""}
+             <div className="overflow-screen">
             {todos.map((todo) => (
               <div key={todo.id} className="action">
               <li className="group">
@@ -60,12 +61,14 @@ export default function ListTask({todos, setTodos, setTasks, setUpdate}) {
               <span style={todo.checked ? {textDecoration : 'line-through'} : {}}>{todo.tasks}</span> 
               </div>
               <div className="right"> 
+               {todo.checked ? <FaCheck /> :  <FaXmark style={{color: 'rgb(235, 38, 38', width: '23px', height: '23px'}} /> }
               <AiFillEdit onClick={() => editTodo(todo.id)} />
               <FaTrashAlt onClick={() => deleteTodo(todo.id)} />
               </div>
               </li>
               </div>
             ))}
+           </div>
             </div>
         </div>
     </div>

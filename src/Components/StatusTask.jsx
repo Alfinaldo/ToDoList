@@ -36,7 +36,7 @@ export default function StatusTask({todos, setTodos}) {
   return (
     <div>
         <div className="status-task">
-            <div className="menu">
+            <div className="menuu">
                 <div className="complete">
                     <div className="text">Complete</div>
                     <div className="num">{checkT.length}</div>

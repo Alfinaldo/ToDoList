@@ -1,13 +1,13 @@
 import { useState } from "react"
 import ListTask from "./ListTask"
 import { v4 as uuidv4 } from "uuid"
-import { useToast } from '@chakra-ui/react'
+import AlertComponent from "./AlertComponent"
 
 
 export default function Container({todos, setTodos, update, setUpdate}) {
-  const toast = useToast()
-  console.log(todos)
   const [tasks, setTasks] = useState('')
+  const [alert, setAlert] = useState(false)
+
 
   const addTodo = () => {
     if(!tasks) return
@@ -20,20 +20,19 @@ export default function Container({todos, setTodos, update, setUpdate}) {
       const newTodo = {id : uuidv4(), tasks, checked: false}
       setTodos([...todos, newTodo])
       setTasks('')
-      toast ({
-       description: "Task created.",
-       status: 'success',
-       duration: 2000,
-       position: 'top',
-       isClosable: true,
-     })
+      setAlert(true)
+      setTimeout(() => {
+        setAlert(false)
+      }, 1200);
     }
   }
 
   return (
     <div>
-        <div className="container">
+        <div className="containerr">
+          <div className="containerr-header">
           <div className="wrapperr">
+          <AlertComponent alert={alert} />
             <h1>📝ToDoList <span>App</span></h1>
             <div className="input-group">
               <input type="text"
@@ -45,6 +44,7 @@ export default function Container({todos, setTodos, update, setUpdate}) {
             </div>
             <ListTask todos={todos} setTodos={setTodos} tasks={tasks} setTasks={setTasks} setUpdate={setUpdate} />
           </div>
+        </div>
         </div>
     </div>
   )
